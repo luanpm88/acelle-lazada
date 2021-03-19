@@ -43,11 +43,14 @@ class MainController extends Controller
             'lazada_secret' => 'required',
         ]);
 
-        // save
-        $record->updateData([
-            'lazada_key' => $request->lazada_key,
-            'lazada_secret' => $request->lazada_secret,
-        ]);
+        // test amazon api connection
+        $validator->after(function ($validator) use($request) {
+            try {
+                \Acelle\Plugin\Lazada\Main::test($request->lazada_key, $request->lazada_secret);
+            } catch (\Exception $e) {
+                $validator->errors()->add('lazada_key', $e->getMessage());
+            }
+        });
 
         // redirect if fails
         if ($validator->fails()) {
@@ -57,6 +60,12 @@ class MainController extends Controller
                 'data' => $data,
             ]);
         }
+        
+        // save
+        $record->updateData([
+            'lazada_key' => $request->lazada_key,
+            'lazada_secret' => $request->lazada_secret,
+        ]);
 
         // success
         $request->session()->flash('alert-success', trans('lazada::messages.setting.updated'));
