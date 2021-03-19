@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 
-@section('title', trans('awswhitelabel::messages.aws_whitelabel_plugin'))
+@section('title', trans('lazada::messages.lazada_plugin_for_acelle'))
 
 @section('page_script')
     <script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
@@ -26,7 +26,7 @@
                     {{ $plugin->description }}
                 </p>
                 <div class="text-muted">
-                    {{ trans('awswhitelabel::messages.version') }}: {{ $plugin->version }}
+                    {{ trans('lazada::messages.version') }}: {{ $plugin->version }}
                 </div>
             </div>		
         </div>		
@@ -42,51 +42,39 @@
                 @csrf
 
                 <p>
-                    {{ trans('awswhitelabel::messages.whitelabel.choose_brand.wording') }}
+                    {{ trans('lazada::messages.lazada.wording') }}
                 </p>
                 <div class="row mb-4">
                     <div class="col-md-12 pr-0 form-groups-bottom-0">
                         @include('helpers.form_control', [
                             'type' => 'text',
                             'class' => '',
-                            'label' => 'AWS key',
-                            'disabled' => true,
-                            'name' => 'aws_key',
-                            'value' => isset($data['aws_key']) ? $data['aws_key'] : null,
-                            'help_class' => 'aws_key',
-                            'rules' => ['aws_key' => 'required']
+                            'label' => trans('lazada::messages.lazada_key'),
+                            'name' => 'lazada_key',
+                            'value' => isset($data['lazada_key']) ? $data['lazada_key'] : null,
+                            'help_class' => 'lazada_key',
+                            'rules' => ['lazada_key' => 'required']
                         ])
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-12 pr-0 form-groups-bottom-0">
                         @include('helpers.form_control', [
-                            'type' => 'text',
+                            'type' => 'password',
                             'class' => '',
-                            'label' => 'AWS secret',
-                            'disabled' => true,
-                            'name' => 'aws_secret',
-                            'value' => isset($data['aws_secret']) ? $data['aws_secret'] : null,
-                            'help_class' => 'aws_secret',
-                            'rules' => ['aws_secret' => 'required']
+                            'eye' => true,
+                            'label' => trans('lazada::messages.lazada_secret'),
+                            'name' => 'lazada_secret',
+                            'value' => isset($data['lazada_secret']) ? $data['lazada_secret'] : null,
+                            'help_class' => 'lazada_secret',
+                            'rules' => ['lazada_secret' => 'required']
                         ])
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-md-12 pr-0 form-groups-bottom-0">
-                        <p>{{ $data['domain'] }} | Zone: {{ $data['zone'] }} <a href="{{ action('\Acelle\Plugin\AwsWhitelabel\Controllers\MainController@selectDomain') }}" class="btn btn-link" style="color: #333">+ Change domain</a></p>
-                    </div>
-                </div>
                 <div class="">
-                    @if (!$plugin->isActive())
-                    
-                        <input type="submit" formaction="{{ action('\Acelle\Plugin\AwsWhitelabel\Controllers\MainController@activate') }}" value="Activate">
-                    
-                    @endif
-                    
-                    <input type="submit" formaction="{{ action('\Acelle\Plugin\AwsWhitelabel\Controllers\MainController@reset') }}" value="Reset Connection">
-                    
-                    
+                    <input class="btn btn-mc_primary" type="submit"
+                        formaction="{{ action('\Acelle\Plugin\Lazada\Controllers\MainController@save') }}"
+                        value="{{ trans('lazada::messages.save') }}">
                 </div>
             
         </div>

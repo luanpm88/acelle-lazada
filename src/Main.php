@@ -22,6 +22,14 @@ class Main
 
     public function registerHooks()
     {
+        $record = $this->getDbRecord();
+        $data = $record->getData();
+
+        config([
+            'lazada.key' => isset($data['lazada_key']) ? $data['lazada_key'] : null,
+            'lazada.secret' => isset($data['lazada_secret']) ? $data['lazada_secret'] : null,
+        ]);
+        
         // // Register hooks
         // Hook::register('filter_aws_ses_dns_records', function (&$identity, &$dkims, &$spf) {
         //     $this->removeAmazonSesBrand($identity, $dkims, $spf);

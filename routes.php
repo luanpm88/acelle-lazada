@@ -12,6 +12,7 @@
 */
 
 Route::group(['middleware' => ['web'], 'namespace' => '\Acelle\Plugin\Lazada\Controllers'], function () {
-    // White label setting page
+    // Lazada setting
+    Route::match(['post'], '/lazada/setting/save', 'MainController@save');
     Route::match(['get'], '/lazada/setting', 'MainController@index');
 });
