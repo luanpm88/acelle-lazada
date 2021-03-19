@@ -1,0 +1,28 @@
+{
+    "name": "acelle/lazada",
+    "title": "Lazada Plugin For Acelle",
+    "version": "1.0.1",
+    "app_version": "3.0",
+    "description": "Add Lazada functionalities to Acelle Mail app",
+    "authors": [
+        {
+            "name": "Basic Technology Software Co., Ltd.",
+            "email": "contact@b-teka.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Acelle\\Plugin\\Lazada\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Acelle\\Plugin\\Lazada\\ServiceProvider"
+            ]
+        },
+        "setting-route": "\\Acelle\\Plugin\\Lazada\\Controllers\\MainController@index"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
